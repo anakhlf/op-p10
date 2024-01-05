@@ -21,7 +21,7 @@ const Slider = () => {
   });
   return (
     <div className="SlideCardList">
-      {byDateDesc?.map((event, idx) => (
+      {data?.focus?.map((event, idx) => (
         <>
           <div
             key={event.title}
@@ -40,12 +40,13 @@ const Slider = () => {
           </div>
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) => (
+              {data?.focus?.map((item) => (
                 <input
-                  key={`${event.id}`}
+                  key={item.id}
                   type="radio"
                   name="radio-button"
-                  checked={idx === radioIdx}
+                  checked={index === data.focus.indexOf(item)}
+                  onChange={() => setIndex(data.focus.indexOf(item))}
                 />
               ))}
             </div>

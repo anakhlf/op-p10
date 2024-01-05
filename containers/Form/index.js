@@ -8,6 +8,8 @@ const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 1000
 
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
+  const [messageSent, setMessageSent] = useState(false); // État pour contrôler l'affichage du message de confirmation
+
   const sendContact = useCallback(
     async (evt) => {
       evt.preventDefault();
@@ -16,6 +18,8 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
+        setMessageSent(true); // Mettre à jour l'état pour afficher le message de confirmation
+        onSuccess(); // Appeler onSuccess après l'envoi réussi
       } catch (err) {
         setSending(false);
         onError(err);
@@ -23,6 +27,12 @@ const Form = ({ onSuccess, onError }) => {
     },
     [onSuccess, onError]
   );
+
+   // Afficher le message de confirmation si le message a été envoyé avec succès
+   if (messageSent) {
+    return <div className="ModalMessage--success ModalMessage--success-2 confirmation-message" data-testid="confirmation-message">Message envoyé avec succès!</div>;
+  }
+  
   return (
     <form onSubmit={sendContact}>
       <div className="row">
@@ -37,7 +47,7 @@ const Form = ({ onSuccess, onError }) => {
             titleEmpty
           />
           <Field placeholder="" label="Email" />
-          <Button type={BUTTON_TYPES.SUBMIT} disabled={sending}>
+          <Button type={BUTTON_TYPES.SUBMIT} disabled={sending} data-testid="button-test-id"> 
             {sending ? "En cours" : "Envoyer"}
           </Button>
         </div>
