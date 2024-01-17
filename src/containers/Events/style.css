@@ -1,0 +1,12 @@
+.SelectTitle {
+  color: white;
+}
+
+#first-page-events {
+  display: block;
+}
+
+#remaining-events {
+  display: none;
+}
+
