@@ -102,12 +102,8 @@ describe("When Form is created", () => {
       render(<Home>
         <DataProvider>
           <Events />
-        </DataProvider>
-        
+        </DataProvider>  
         </Home>);
-
-
-
       
       fireEvent.click(await screen.findByText("Envoyer"));
   
